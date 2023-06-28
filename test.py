@@ -114,11 +114,11 @@ class Test():
         self.img_root = './input/'
         self.ldmk_root = './ldmk/'
         self.img_lst = os.listdir(self.img_root)
-        self.renderer = torch.nn.DataParallel(SimpleRenderer(device).to(device), [0, 1])
-        self.face_decoder = torch.nn.DataParallel(Face3D(device).to(device), [0, 1])
-        self.generator = torch.nn.DataParallel(Generator().to(device), [0, 1])
+        self.renderer = torch.nn.DataParallel(SimpleRenderer(device).to(device), [0])
+        self.face_decoder = torch.nn.DataParallel(Face3D(device).to(device), [0])
+        self.generator = torch.nn.DataParallel(Generator().to(device), [0])
         self.tri = self.face_decoder.module.facemodel.tri.unsqueeze(0)
-        self.face_encoder = torch.nn.DataParallel(FaceEncoder().to(device), [0, 1])
+        self.face_encoder = torch.nn.DataParallel(FaceEncoder().to(device), [0])
         state_dict = torch.load('./ckpts/3D_it_500000.pkl')
         self.face_encoder.load_state_dict(state_dict)
         self.face_encoder.eval()
