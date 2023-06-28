@@ -199,7 +199,7 @@ class Test():
         out = cv2.seamlessClone(src_crop, dst, mask_crop, ctr, cv2.NORMAL_CLONE)
         return out
 
-    def de_mask(self):
+    def de_mask(self, name="output"):
         img, img_tensor, mask, seg, coeff, img_init, mat = \
             self.data['I'], self.data['I_t'], self.data['mask'],\
             self.data['seg'], self.data['coeff'], self.data['img_init'], self.data['mat']
@@ -224,6 +224,11 @@ class Test():
         self.data['inpaint_show'] = inpaint_show
         self.data['recon_show'] = recon_show
         self.data['show'] = np.concatenate((img_init, recon_show, inpaint_show), axis=1)
+
+        # save iamge
+        output_img_path = os.path.join('./results/images/', name)
+        print(output_img_path)
+        cv2.imwrite(output_img_path, np.concatenate((img_init, recon_show, inpaint_show), axis=1)[..., ::-1])
 
     def forward(self):
         for name in self.img_lst:
