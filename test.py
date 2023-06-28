@@ -127,7 +127,6 @@ class Test():
 
         self.data = {}
         self.title = 'show'
-        cv2.namedWindow(self.title)
         with open('./ckpts/expression_mu_std.pkl', 'rb') as f:
             exp = pickle.load(f)
         self.std = exp['std']
@@ -228,48 +227,11 @@ class Test():
 
     def forward(self):
         for name in self.img_lst:
-            cv2.namedWindow(self.title)
             img_init, img, img_tensor, seg, coeff, mask, mat = self.load_data(name)
             self.data = {'I': img, 'I_t': img_tensor, 'mask': mask, 'seg': seg, 'coeff': coeff, 'img_init': img_init, 'mat': mat}
             self.noise = torch.rand_like(mask)
             self.coeff_clone = coeff.clone()
-            self.create_trackbars()
-            self.de_mask()
-            count = 0
-            while True:
-                show = self.data['show'][..., ::-1]
-                cv2.imshow(self.title, show)
-                key = cv2.waitKey(5)
-                if key == ord('q'):
-                    self.stop = True
-                    break
-                elif key == ord('n'):
-                    cv2.destroyWindow(self.title)
-                    break
-                if key == ord('r'):
-                    self.noise = torch.rand_like(mask)
-                    self.de_mask()
-                if key == ord('d'):
-                    self.data['coeff']= self.coeff_clone.clone()
-                    cv2.destroyWindow(self.title)
-                    cv2.namedWindow(self.title)
-                    self.create_trackbars()
-                    self.de_mask()
-                if key == ord('s'):
-                    sv_name = name.split('.')[0]+'_{}.png'.format(count)
-                    img_pth = os.path.join('animation/res/', sv_name)
-                    cv2.imwrite(img_pth, self.data['inpaint_show'][...,::-1])
-                    rec_pth = os.path.join('animation/3D/', sv_name)
-                    cv2.imwrite(rec_pth, self.data['recon_show'][...,::-1])
-
-                    ldmk_sv_name = name.split('.')[0]+'_{}.txt'.format(count)
-                    ldmk_pth = os.path.join('animation/ldmk/', ldmk_sv_name)
-                    np.savetxt(ldmk_pth, self.data['ldmk'])
-                    count += 1
-                    # cv2.imwrite('output_ours/{}'.format(name), self.data['inpaint_show'][...,::-1])
-
-            if self.stop:
-                break
+            self.de_mask(name)
 
             # if key == ord('s'):
 
