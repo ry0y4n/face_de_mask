@@ -1,3 +1,27 @@
+# face_de_mask on Goole Colab
+
+This repository is a fork of the original [face_de_mask](https://github.com/face3d0725/face_de_mask) with changes to make it compatible with running on Google Colab.
+
+## How to Use
+
+1. Upload the necessary files to Google Drive
+    1. Download the folder from [this link](https://drive.google.com/drive/folders/1xRN9acdQEb9VDm97ni1mt86UBTsrBlAD?usp=sharing)
+    2. Upload the folder to your Google Drive (recommended to put it in `MyDrive/`)
+
+2. Run Colab
+
+    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ry0y4n/face_de_mask/blob/main/face_de_mask_for_Colab.ipynb)
+
+## My Changes
+
+- Create a fully integrated notebook, including the processing in [Deep3DFaceReconstruction-Pytorch](https://github.com/face3d0725/Deep3DFaceReconstruction-Pytorch) and [3DFace](https://github.com/Juyong/3DFace) repositories necessary to perform face_de_mask
+- Fork and modify [face_de_mask](https://github.com/ry0y4n/face_de_mask) to work in the Colab environment
+- Fork and modify [Deep3DFaceReconstruction-Pytorch](https://github.com/ry0y4n/Deep3DFaceReconstruction-Pytorch) to work in the Colab environment
+
+*The following is the original README*
+
+---
+
 # face_de_mask
 
 Evaluation code for : [Non-Deterministic Face Mask Removal Based On 3D Priors](https://arxiv.org/pdf/2202.09856.pdf)
